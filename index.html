@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic table</title>
+    <style>
+
+        body{background-color: rgb(204, 195, 182);}
+
+
+        table{
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td{
+            border: 1px solid black;
+            text-align: center;
+        }
+
+
+        .label{
+            border: 2px solid rgb(38, 158, 206);
+            border-radius: 5px;
+            padding: 5px;
+            background-color: rgb(205, 165, 112);
+        }
+
+
+        .tableBtn{
+            border: 2px solid rgb(38, 158, 206);
+            border-radius: 5px;
+            padding: 5px;
+            background-color: rgb(205, 165, 112);
+        }
+
+        .rowBtn{
+            border: 2px solid rgb(38, 158, 206);
+            border-radius: 5px;
+            padding: 5px;
+            background-color: rgb(205, 165, 112);
+        }
+
+        .colBtn{
+            border: 2px solid rgb(38, 158, 206);
+            border-radius: 5px;
+            padding: 5px;
+            background-color: rgb(205, 165, 112);
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <button class="label">Rows:</button>
+    <input type="number" id="rows" min="1" value="3">
+
+     <button class="label">Columns</button>
+    <input type="number" id="columns" min="1" value="3">
+
+
+    <button id="createTable" class="tableBtn">Create table</button>
+    <button id="addRow" class="rowBtn">+Row</button>
+    <button id="addColumn" class="colBtn">+Column</button>
+
+    <br><br>
+
+    <div id="tableCOntainer"></div>
+
+
+
+
+    <script>
+
+        const createTableBtn = document.getElementById('createTable');
+        const addRowBtn = document.getElementById('addRow');
+        const addColumnBtn = document.getElementById('addColumn');
+        const tableContainer = document.getElementById('tableCOntainer');
+
+        let table;
+
+        function createTable() {
+            const rows = document.getElementById('rows').value;
+            const columns = document.getElementById('columns').value;
+
+
+            if(table) {
+                tableContainer.removeChild(table);
+            }
+
+
+            table = document.createElement('table');
+
+            for(let i = 0; i < rows; i++){
+                let row = table.insertRow();
+
+                for(let j = 0; j < columns; j++){
+                    let cell = row.insertCell();
+                    cell.textContent = `Row ${i + 1} Col ${j + 1}`;
+                }
+            }
+            tableContainer.appendChild(table);
+        }
+
+
+        function addRow(){
+            if(!table) return;
+
+            let columns = table.rows[0].cells.length;
+            let newRow = table.insertRow();
+
+
+            for(let i = 0; i < columns; i++){
+                let cell = newRow.insertCell();
+                cell.textContent = `New Row Col ${i+1}`;
+            }
+        }
+
+
+        function addColumn(){
+            if(!table) return;
+
+
+            for(let i = 0; i < table.rows.length; i++){
+                let cell = table.rows[i].insertCell();
+                cell.textContent = `Row ${i + 1} New Col`;
+            }
+        }
+
+
+
+        createTableBtn.addEventListener('click', createTable);
+        addRowBtn.addEventListener('click', addRow);
+        addColumnBtn.addEventListener('click', addColumn);
+
+
+
+
+
+
+
+
+
+    </script>
+    
+</body>
+</html>
